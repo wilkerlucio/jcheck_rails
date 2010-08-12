@@ -26,6 +26,18 @@ describe "JcheckRails Encoder" do
   end
   
   context "converting values" do
+    it "should parse TrueClass" do
+      JcheckRails::Encoder.convert_to_javascript(true).should == "true"
+    end
+    
+    it "should parse FalseClass" do
+      JcheckRails::Encoder.convert_to_javascript(false).should == "false"
+    end
+    
+    it "should parse NilClass" do
+      JcheckRails::Encoder.convert_to_javascript(nil).should == "null"
+    end
+    
     it "should convert blank hashes to true" do
       JcheckRails::Encoder.convert_to_javascript({}).should == "true"
     end

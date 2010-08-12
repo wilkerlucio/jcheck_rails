@@ -9,6 +9,12 @@ module JcheckRails
         return "true" if object == {}
 
         case object
+          when TrueClass
+            "true"
+          when FalseClass
+            "false"
+          when NilClass
+            "null"
           when Symbol, String
             "'#{escape_javascript object.to_s}'"
           when Regexp
