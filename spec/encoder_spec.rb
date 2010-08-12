@@ -21,7 +21,7 @@ describe "JcheckRails Encoder" do
   
   context "parsing hashes" do
     it "convert hash keys and values" do
-      JcheckRails::Encoder.convert_hash({:key => "value", "other" => "thing"}).should == '{"key": "value", "other": "thing"}'
+      JcheckRails::Encoder.convert_hash({:key => "value", "other" => "thing"}).should == "{'key': 'value', 'other': 'thing'}"
     end
   end
   
@@ -31,11 +31,11 @@ describe "JcheckRails Encoder" do
     end
     
     it "should generate strings with single quotes" do
-      JcheckRails::Encoder.convert_to_javascript("some string").should == '"some string"'
+      JcheckRails::Encoder.convert_to_javascript("some string").should == "'some string'"
     end
     
     it "should generate strings with escaped quotes" do
-      JcheckRails::Encoder.convert_to_javascript('some "quote"').should == '"some \\"quote\\""'
+      JcheckRails::Encoder.convert_to_javascript("it can't happen").should == "'it can\\'t happen'"
     end
     
     it "should convert regular expressions" do

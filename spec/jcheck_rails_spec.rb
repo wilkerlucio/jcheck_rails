@@ -9,7 +9,7 @@ describe "JcheckRails" do
           validates_format_of :name, :with => /^[a-z]regex$/i
         end
         
-        jcheck(f).should include('validator.validates("name", {"format": {"with": /^[a-z]regex$/i}});')
+        jcheck(f).should include("validator.validates('name', {'format': {'with': /^[a-z]regex$/i}});")
       end
     end
     
@@ -20,7 +20,7 @@ describe "JcheckRails" do
           validates_presence_of :name
         end
         
-        jcheck(p).should include('validator.validates("name", {"presence": true});')
+        jcheck(p).should include("validator.validates('name', {'presence': true});")
       end
     end
   end

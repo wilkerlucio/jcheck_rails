@@ -10,7 +10,7 @@ module JcheckRails
 
         case object
           when Symbol, String
-            "\"#{escape_javascript object.to_s}\""
+            "'#{escape_javascript object.to_s}'"
           when Regexp
             "/#{object.source}/#{regex_options_string(object.options)}"
           when Hash
