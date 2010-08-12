@@ -15,12 +15,7 @@ module JcheckRails
         validations << "validator.validates(#{Encoder.convert_to_javascript attribute}, {#{attr_validations.join(", ")}});"
       end
       
-      <<-EOS
-<script type="text/javascript">
-  var validator = $("form").jcheck();
-  #{validations.join("\n")}
-</script>
-EOS
+      %{<script type="text/javascript"> var validator = $("form").jcheck(); #{validations.join(" ")} </script>}
     end
   end
 end
