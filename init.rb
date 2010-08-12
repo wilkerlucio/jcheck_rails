@@ -1,0 +1,1 @@
+require 'jcheck_rails'

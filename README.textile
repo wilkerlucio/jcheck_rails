@@ -1,0 +1,12 @@
+h1. jCheck Rails
+
+jCheck Rails provide a ease way to generate "jCheck":http://jcheck.net code
+to validate form according to ActiveModel record validations.
+
+h2. Installation
+
+h2. Documentation
+
+h2. Copyright
+
+Copyright (c) 2010 Wilker Lucio. See LICENSE for details.
