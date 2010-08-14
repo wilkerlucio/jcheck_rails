@@ -42,6 +42,10 @@ describe "JcheckRails Encoder" do
       JcheckRails::Encoder.convert_to_javascript(5).should == "5"
     end
     
+    it "should parse Float" do
+      JcheckRails::Encoder.convert_to_javascript(6.78).should == "6.78"
+    end
+    
     it "should convert arrays" do
       JcheckRails::Encoder.convert_to_javascript(["some", "cool", 3, :values, true]).should == "['some', 'cool', 3, 'values', true]"
     end

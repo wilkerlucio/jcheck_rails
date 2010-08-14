@@ -15,7 +15,7 @@ module JcheckRails
             "false"
           when NilClass
             "null"
-          when Fixnum
+          when Fixnum, Float
             object.to_s
           when Symbol, String
             "'#{escape_javascript object.to_s}'"
