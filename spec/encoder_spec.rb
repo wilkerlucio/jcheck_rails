@@ -38,6 +38,14 @@ describe "JcheckRails Encoder" do
       JcheckRails::Encoder.convert_to_javascript(nil).should == "null"
     end
     
+    it "should parse Fixnum" do
+      JcheckRails::Encoder.convert_to_javascript(5).should == "5"
+    end
+    
+    it "should convert arrays" do
+      JcheckRails::Encoder.convert_to_javascript(["some", "cool", 3, :values, true]).should == "['some', 'cool', 3, 'values', true]"
+    end
+    
     it "should convert blank hashes to true" do
       JcheckRails::Encoder.convert_to_javascript({}).should == "true"
     end

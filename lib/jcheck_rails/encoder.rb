@@ -15,17 +15,26 @@ module JcheckRails
             "false"
           when NilClass
             "null"
+          when Fixnum
+            object.to_s
           when Symbol, String
             "'#{escape_javascript object.to_s}'"
           when Regexp
             "/#{object.source}/#{regex_options_string(object.options)}"
+          when Array
+            convert_array(object)
           when Hash
             convert_hash(object)
           else
             raise ArgumentError.new("can't parse object type #{object.class}")
         end
       end
-
+      
+      def convert_array(array)
+        data = array.map { |x| convert_to_javascript(x) }
+        "[#{data.join(', ')}]"
+      end
+      
       def convert_hash(hash)
         hash_pairs = []
 
