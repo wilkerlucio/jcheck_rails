@@ -131,7 +131,49 @@ describe "JcheckRails" do
     end
     
     context "numericality validator" do
+      it "should generate jcheck" do
+        m = mock_model do
+          attr_accessor :number
+          
+          validates_numericality_of :number
+        end
+        
+        jcheck(m, :number).should == "{'numericality': {'only_integer': false, 'allow_nil': false}}"
+      end
       
+      it "should accept the only_integer parameter" do
+        m = mock_model do
+          attr_accessor :number
+          
+          validates_numericality_of :number, :only_integer => true
+        end
+        
+        jcheck(m, :number).should == "{'numericality': {'only_integer': true, 'allow_nil': false}}"
+      end
+      
+      [:greater_than, :greater_than_or_equal_to, :equal_to, :less_than, :less_than_or_equal_to].each do |parameter|
+        it "should accept #{parameter} parameter" do
+          m = mock_model do
+            attr_accessor :number
+
+            validates_numericality_of :number, parameter => 10
+          end
+
+          jcheck(m, :number).should == "{'numericality': {'only_integer': false, 'allow_nil': false, '#{parameter}': 10}}"
+        end
+      end
+      
+      [:odd, :even].each do |type|
+        it "should accept #{type}" do
+          m = mock_model do
+            attr_accessor :number
+
+            validates_numericality_of :number, type => true
+          end
+
+          jcheck(m, :number).should == "{'numericality': {'only_integer': false, 'allow_nil': false, '#{type}': true}}"
+        end
+      end
     end
     
     context "presence validator" do
