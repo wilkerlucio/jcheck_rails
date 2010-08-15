@@ -51,3 +51,5 @@ module JcheckRails
     options
   end
 end
+
+ActionView::Base.send :include, JcheckRails
