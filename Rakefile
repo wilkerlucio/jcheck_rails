@@ -9,7 +9,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "jcheck_rails"
     gem.summary = %Q{Generate jCheck code according to ActiveModel validations}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{Generate jCheck code according to ActiveModel validations}
     gem.email = "wilkerlucio@gmail.com"
     gem.homepage = "http://github.com/wilkerlucio/jcheck_rails"
     gem.authors = ["Wilker Lucio"]
