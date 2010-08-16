@@ -1,7 +1,7 @@
 h1. jCheck Rails
 
 jCheck Rails provide a ease way to generate "jCheck":http://jcheck.net code
-to validate form according to ActiveModel record validations.
+to validate forms according to ActiveModel record validations.
 
 h2. Installation
 
@@ -11,30 +11,42 @@ bc. gem 'jcheck_rails'
 
 h2. Basic Usage
 
-To make a basic usage of @jcheck_rails@ is really simple, first you need to
-setup your application view to use jcheck, to make it just go to "jCheck site":http://jcheck.net,
-download the latest version, drop the files in your public directory (the zip
-contains the correct folders, js in javascripts folder and css in stylesheets
-folder), and them add there files in you layout.
+To include @jcheck_rails@ in your application is simple. Just download the latest version of "jCheck":http://jcheck.net, extract the files and place them in the correct directories (js, in the javascripts folder and css in stylessheets). Then include the files in your layout.
 
-With the front-end setup done, go to your form and do:
 
-bc. <%= jcheck_for @post %>
+With the library included, on your form views add the following:
 
-Replace the @@post@ with variable of your object to current form. This will
-make a reflection into your model validations and will write the respective
-ones using @jCheck@.
+bc. <%= jcheck_for resource %>
 
-It's highly recommendable that you read the @jCheck@ documentation at
+Replace @resource@ with the instance variable of the resource for form e.g. @@user@. This will
+use reflection, to detect the model validations and will convert these to @jCheck@.
+
+It's highly recommended that you read the @jCheck@ documentation at
 "http://jcheck.net/documentation":http://jcheck.net/documentation for a full
-knowledge on @jCheck@.
+overview on @jCheck@.
 
 h2. TODO
 
-* Option to filter fields that should has exposed validations
-* Get messages from i18n and append automatic
-* Get field names from i18n and use automatic
+* Option to filter fields that should have exposed validations
+* Get messages from i18n and append automatically 
+* Get field names from i18n and use automatically
 
-h2. Copyright
+h2. Maintainers
 
-Copyright (c) 2010 Wilker Lucio. See LICENSE for details.
+* Wilker Lucio (http://github.com/wilkerlucio/jcheck)
+
+h2. License
+
+	Copyright 2010 Bit Zesty Ltd.
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+	    http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
