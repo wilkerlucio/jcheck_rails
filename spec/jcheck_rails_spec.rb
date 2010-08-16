@@ -208,11 +208,11 @@ describe "JcheckRails" do
     end
     
     it "should generate all data" do
-      jcheck(@m).should == "<script type=\"text/javascript\"> var validator = $('#new_sample_model').jcheck({'field_prefix': 'sample_model'}); validator.validates('name', {'presence': true}); </script>"
+      jcheck(@m).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_sample_model').jcheck({'field_prefix': 'sample_model'}); validator.validates('name', {'presence': true}); }); </script>"
     end
     
     it "should be able to customize form id" do
-      jcheck(@m, nil, :form_id => "custom_form_id").should include("$('#custom_form_id')")
+      jcheck(@m, nil, :form_id => "custom_form_id").should include("jQuery('#custom_form_id')")
     end
     
     it "should be able to customize field prefix" do
@@ -224,7 +224,7 @@ describe "JcheckRails" do
     end
     
     it "should be able customize javascript variable name" do
-      jcheck(@m, nil, :variable => "v").should include("var v = $", "v.validates")
+      jcheck(@m, nil, :variable => "v").should include("var v = jQuery", "v.validates")
     end
   end
   
@@ -247,7 +247,7 @@ describe "JcheckRails" do
       
       CusCla = m.class
       
-      jcheck(m).should == "<script type=\"text/javascript\"> var validator = $('#new_cus_cla').jcheck({'field_prefix': 'cus_cla'}); validator.validates('name', {'presence': true}); </script>"
+      jcheck(m).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_cus_cla').jcheck({'field_prefix': 'cus_cla'}); validator.validates('name', {'presence': true}); }); </script>"
     end
   end
 end
