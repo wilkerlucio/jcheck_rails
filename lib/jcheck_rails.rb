@@ -3,6 +3,25 @@ require 'jcheck_rails/encoder'
 module JcheckRails
   extend self
   
+  # This will reflect into your model and generate correct jCheck validations
+  # for you. In first argument you should send the current object of model, if
+  # you want to get just the validations for an given attribute, send the
+  # attribute name as second parameter. In third parameter you can send options
+  # to be used in jCheck initialization, but there some special keys that can
+  # be sent in the options.
+  #
+  #   <%= form_for(@object) do |f| %>
+  #     ...
+  #   <% end %>
+  #   <%= jcheck_for(@object) %>
+  #
+  # Configuration options:
+  # * <tt>:variable</tt> - Variable name to be used in javascript (default is: "validator")
+  # * <tt>:form_id</tt> - The id of form in html to be used in jQuery selector (default is same behaviour as +form_for+ do to generate form id)
+  # * <tt>:field_prefix</tt> - Field prefix to be used into jCheck, send nil to avoid field_prefix (default is same prefix as form_for will do)
+  #
+  # Also, any other configuration option will be sent to jCheck() initializer.
+  #
   def jcheck_for(object, attribute = nil, options = {})
     return jcheck_for_object_attribute(object, attribute) if attribute
     

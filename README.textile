@@ -5,7 +5,35 @@ to validate form according to ActiveModel record validations.
 
 h2. Installation
 
-h2. Documentation
+Just configure your Gemfile with
+
+bc. gem 'jcheck_rails'
+
+h2. Basic Usage
+
+To make a basic usage of @jcheck_rails@ is really simple, first you need to
+setup your application view to use jcheck, to make it just go to "jCheck site":http://jcheck.net,
+download the latest version, drop the files in your public directory (the zip
+contains the correct folders, js in javascripts folder and css in stylesheets
+folder), and them add there files in you layout.
+
+With the front-end setup done, go to your form and do:
+
+bc. <%= jcheck_for @post %>
+
+Replace the @@post@ with variable of your object to current form. This will
+make a reflection into your model validations and will write the respective
+ones using @jCheck@.
+
+It's highly recommendable that you read the @jCheck@ documentation at
+"http://jcheck.net/documentation":http://jcheck.net/documentation for a full
+knowledge on @jCheck@.
+
+h2. TODO
+
+* Option to filter fields that should has exposed validations
+* Get messages from i18n and append automatic
+* Get field names from i18n and use automatic
 
 h2. Copyright
 
