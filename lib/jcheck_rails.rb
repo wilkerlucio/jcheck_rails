@@ -23,7 +23,7 @@ module JcheckRails
       validations << "#{variable}.validates(#{Encoder.convert_to_javascript attribute}, #{attr_validations});"
     end
     
-    %{<script type="text/javascript"> jQuery(function() { var #{variable} = jQuery('##{form_id}').jcheck(#{Encoder.convert_to_javascript(options)}); #{validations.join(" ")} }); </script>}
+    %{<script type="text/javascript"> jQuery(function() { var #{variable} = jQuery('##{form_id}').jcheck(#{Encoder.convert_to_javascript(options)}); #{validations.join(" ")} }); </script>}.html_safe
   end
   
   def jcheck_for_object_attribute(object, attribute)
