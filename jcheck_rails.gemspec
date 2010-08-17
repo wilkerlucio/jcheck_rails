@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wilker Lucio"]
-  s.date = %q{2010-08-15}
+  s.date = %q{2010-08-17}
   s.description = %q{Generate jCheck code according to ActiveModel validations}
   s.email = %q{wilkerlucio@gmail.com}
   s.extra_rdoc_files = [
@@ -31,7 +31,8 @@ Gem::Specification.new do |s|
      "lib/jcheck_rails/encoder.rb",
      "spec/encoder_spec.rb",
      "spec/jcheck_rails_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "tasks/jcheck_tasks.rake"
   ]
   s.homepage = %q{http://github.com/wilkerlucio/jcheck_rails}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -49,9 +50,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<zip>, [">= 2.0.2"])
     else
+      s.add_dependency(%q<zip>, [">= 2.0.2"])
     end
   else
+    s.add_dependency(%q<zip>, [">= 2.0.2"])
   end
 end
 

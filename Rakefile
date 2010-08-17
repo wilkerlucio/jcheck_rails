@@ -13,6 +13,8 @@ begin
     gem.email = "wilkerlucio@gmail.com"
     gem.homepage = "http://github.com/wilkerlucio/jcheck_rails"
     gem.authors = ["Wilker Lucio"]
+    gem.files.include ["lib/**/*", "tasks/**/*"]
+    gem.add_dependency('zip', '>= 2.0.2')
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

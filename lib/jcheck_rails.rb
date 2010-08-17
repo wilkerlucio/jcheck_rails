@@ -1,6 +1,12 @@
 require 'jcheck_rails/encoder'
 
 module JcheckRails
+  class Engine < Rails::Engine
+    rake_tasks do
+      load File.expand_path('../../tasks/jcheck_tasks.rake', __FILE__)
+    end
+  end
+  
   extend self
   
   # This will reflect into your model and generate correct jCheck validations
