@@ -11,8 +11,11 @@ bc. gem 'jcheck_rails'
 
 h2. Basic Usage
 
-To include @jcheck_rails@ in your application is simple. Just download the latest version of "jCheck":http://jcheck.net, extract the files and place them in the correct directories (js, in the javascripts folder and css in stylessheets). Then include the files in your layout.
+You can easily download latest version of jcheck using the provided rake task:
 
+bc. rake jcheck:setup
+
+This will download latest version of jcheck and will extract in correct directories for you. Them you just need to include files in your view layout.
 
 With the library included, on your form views add the following:
 
