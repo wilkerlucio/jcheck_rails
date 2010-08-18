@@ -34,6 +34,16 @@ h2. TODO
 * Get messages from i18n and append automatically 
 * Get field names from i18n and use automatically
 
+h2. Change Log
+
+h3. 0.2.0
+
+* Added rake task for setup
+
+h3. 0.1.1
+
+* Initial Release
+
 h2. Maintainers
 
 * Wilker Lucio (http://github.com/wilkerlucio/jcheck)
