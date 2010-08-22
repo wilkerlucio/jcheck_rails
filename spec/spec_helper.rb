@@ -24,3 +24,20 @@ def mock_model(&block)
   cls.class_eval &block
   cls.new
 end
+
+module ActiveModel
+  module Validations
+    class SampleValidator < EachValidator
+      def validate_each(record, attribute, value)
+        record.errors.add(attribute, "test")
+      end
+    end
+    
+    module HelperMethods
+      def validates_sample_of(*attr_names)
+        validates_with SampleValidator, _merge_attributes(attr_names)
+      end
+    end
+  end
+end
+

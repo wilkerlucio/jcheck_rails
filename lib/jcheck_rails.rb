@@ -9,6 +9,8 @@ module JcheckRails
   
   extend self
   
+  KNOW_VALIDATORS = [:acceptance, :confirmation, :exclusion, :format, :inclusion, :length, :numericality, :presence]
+  
   # This will reflect into your model and generate correct jCheck validations
   # for you. In first argument you should send the current object of model, if
   # you want to get just the validations for an given attribute, send the
@@ -55,7 +57,8 @@ module JcheckRails
     validations = object.class._validators[attribute].inject([]) do |acc, validator|
       options = filter_validator_options(validator)
       
-      acc << "#{Encoder.convert_to_javascript validator.kind}: #{Encoder.convert_to_javascript(options)}"
+      acc << "#{Encoder.convert_to_javascript validator.kind}: #{Encoder.convert_to_javascript(options)}" if KNOW_VALIDATORS.include? validator.kind
+      acc
     end
     
     "{#{validations.join(', ')}}"

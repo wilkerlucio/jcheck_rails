@@ -186,6 +186,16 @@ describe "JcheckRails" do
         jcheck(m, :name).should == "{'presence': true}"
       end
     end
+    
+    it "should not generate for other validations" do
+      m = mock_model do
+        attr_accessor :name
+        validates_presence_of :name
+        validates_sample_of :name
+      end
+      
+      jcheck(m, :name).should == "{'presence': true}"
+    end
   end
   
   context "generating all script for model" do
