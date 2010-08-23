@@ -29,6 +29,8 @@ module JcheckRails
   # * <tt>:form_id</tt> - The id of form in html to be used in jQuery selector (default is same behaviour as +form_for+ do to generate form id)
   # * <tt>:field_prefix</tt> - Field prefix to be used into jCheck, send nil to avoid field_prefix (default is same prefix as form_for will do)
   # * <tt>:generate_field_names</tt> - Define if it should generate field custom_label for jCheck (default is true)
+  # * <tt>:only_attributes</tt> - Filter the attributes that should be reflected (default nil)
+  # * <tt>:exclude_attributes</tt> - Filter the attributes that should not be reflected (default nil)
   #
   # Also, any other configuration option will be sent to jCheck() initializer.
   #
@@ -43,9 +45,13 @@ module JcheckRails
       :variable => "validator",
       :form_id => ActionController::RecordIdentifier.dom_id(object, (object.respond_to?(:persisted?) && object.persisted? ? :edit : nil)),
       :field_prefix => ActiveModel::Naming.singular(object),
-      :generate_field_names => true
+      :generate_field_names => true,
+      :only_attributes => nil,
+      :exclude_attributes => nil
     )
     
+    only_attributes = options.delete :only_attributes
+    exclude_attributes = options.delete :exclude_attributes
     variable = options.delete :variable
     form_id = options.delete :form_id
     generate_field_names = options.delete :generate_field_names
@@ -54,6 +60,9 @@ module JcheckRails
     field_names = []
     
     object.class._validators.each do |attribute, validators|
+      next if only_attributes and !(only_attributes.include?(attribute))
+      next if exclude_attributes and exclude_attributes.include?(attribute)
+      
       attr_validations = jcheck_for_object_attribute(object, attribute)
       
       field_names << "#{variable}.field(#{Encoder.convert_to_javascript attribute}).custom_label = #{Encoder.convert_to_javascript jcheck_attribute_name(object, attribute)};" if generate_field_names

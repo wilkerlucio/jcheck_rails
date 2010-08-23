@@ -255,6 +255,30 @@ describe "JcheckRails" do
       jcheck(@m).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_sample_model').jcheck({'field_prefix': 'sample_model'}); validator.validates('name', {'presence': true}); validator.field('name').custom_label = 'Name'; }); </script>"
     end
     
+    context "filtering attributes" do
+      before :all do
+        @md = mock_model do
+          attr_accessor :name, :email, :address
+          
+          validates_presence_of :name, :email, :address
+        end
+        
+        FilterTest = @md.class
+      end
+      
+      it "should get only some attributes if using only_attributes option" do
+        output = jcheck(@md, :only_attributes => [:name, :email])
+        output.should include("validates('name'", "validates('email'")
+        output.should_not include("validates('address'")
+      end
+      
+      it "should exclude some attributes if it's sent" do
+        output = jcheck(@md, :exclude_attributes => [:name, :address])
+        output.should include("validates('email'")
+        output.should_not include("validates('name'", "validates('address'")
+      end
+    end
+    
     it "should be able to customize form id" do
       jcheck(@m, :form_id => "custom_form_id").should include("jQuery('#custom_form_id')")
     end
