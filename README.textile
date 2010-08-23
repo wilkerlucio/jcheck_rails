@@ -34,6 +34,12 @@ h2. TODO
 
 h2. Change Log
 
+h3. 0.5.0
+
+* Don't create validations for unavailable ones (like uniqueness validator)
+* Generating field labels from Rails i18n
+* Able to filter attributes to be reflected
+
 h3. 0.2.0
 
 * Added rake task for setup
