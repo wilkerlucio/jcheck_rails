@@ -27,6 +27,7 @@ module JcheckRails
   # * <tt>:variable</tt> - Variable name to be used in javascript (default is: "validator")
   # * <tt>:form_id</tt> - The id of form in html to be used in jQuery selector (default is same behaviour as +form_for+ do to generate form id)
   # * <tt>:field_prefix</tt> - Field prefix to be used into jCheck, send nil to avoid field_prefix (default is same prefix as form_for will do)
+  # * <tt>:generate_field_names</tt> - Define if it should generate field custom_label for jCheck (default is true)
   #
   # Also, any other configuration option will be sent to jCheck() initializer.
   #
@@ -36,21 +37,33 @@ module JcheckRails
     options.reverse_merge!(
       :variable => "validator",
       :form_id => ActionController::RecordIdentifier.dom_id(object, (object.respond_to?(:persisted?) && object.persisted? ? :edit : nil)),
-      :field_prefix => ActiveModel::Naming.singular(object)
+      :field_prefix => ActiveModel::Naming.singular(object),
+      :generate_field_names => true
     )
     
     variable = options.delete :variable
     form_id = options.delete :form_id
+    generate_field_names = options.delete :generate_field_names
     
     validations = []
+    field_names = []
     
     object.class._validators.each do |attribute, validators|
       attr_validations = jcheck_for_object_attribute(object, attribute)
       
+      field_names << "#{variable}.field(#{Encoder.convert_to_javascript attribute}).custom_label = #{Encoder.convert_to_javascript jcheck_attribute_name(object, attribute)};" if generate_field_names
       validations << "#{variable}.validates(#{Encoder.convert_to_javascript attribute}, #{attr_validations});"
     end
     
-    %{<script type="text/javascript"> jQuery(function() { var #{variable} = jQuery('##{form_id}').jcheck(#{Encoder.convert_to_javascript(options)}); #{validations.join(" ")} }); </script>}.html_safe
+    %{<script type="text/javascript"> jQuery(function() { var #{variable} = jQuery('##{form_id}').jcheck(#{Encoder.convert_to_javascript(options)}); #{validations.join(" ")} #{field_names.join(" ")} }); </script>}.html_safe
+  end
+  
+  def jcheck_attribute_name(object, attribute)
+    if object.class.respond_to? :human_attribute_name
+      object.class.human_attribute_name(attribute)
+    else
+      attribute.to_s.humanize
+    end
   end
   
   def jcheck_for_object_attribute(object, attribute)

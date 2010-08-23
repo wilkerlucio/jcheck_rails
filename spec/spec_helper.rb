@@ -19,7 +19,15 @@ def jcheck(*args)
 end
 
 def mock_model(&block)
-  cls = Class.new
+  cls = Class.new do
+    def persisted?
+      false
+    end
+    
+    def to_key
+      nil
+    end
+  end
   cls.send :include, ActiveModel::Validations
   cls.class_eval &block
   cls.new

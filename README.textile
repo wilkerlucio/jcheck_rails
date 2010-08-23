@@ -31,8 +31,7 @@ overview on @jCheck@.
 h2. TODO
 
 * Option to filter fields that should have exposed validations
-* Get messages from i18n and append automatically 
-* Get field names from i18n and use automatically
+* Get messages from i18n and append automatically
 
 h2. Change Log
 

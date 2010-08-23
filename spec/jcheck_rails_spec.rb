@@ -198,27 +198,61 @@ describe "JcheckRails" do
     end
   end
   
+  context "i18n" do
+    context "field names" do
+      it "should get result of humanized attribute" do
+        m = mock_model do
+          def self.human_attribute_name(attribute)
+            attribute == "name" ? "Nome" : attribute.to_s.humanize
+          end
+        end
+        
+        JcheckRails::jcheck_attribute_name(m, "name").should == "Nome"
+        JcheckRails::jcheck_attribute_name(m, "other").should == "Other"
+      end
+      
+      it "should generate field names for attributes with validations" do
+        m = mock_model do
+          attr_accessor :name, :email, :main_address
+          
+          validates_presence_of :name, :main_address
+        end
+        
+        T = m.class
+        
+        output = jcheck(m)
+        output.should include("validator.field('name').custom_label = 'Name'", "validator.field('main_address').custom_label = 'Main address'")
+        output.should_not include("validator.field('email')")
+      end
+      
+      it "should not generate field names if it's disabled by option" do
+        m = mock_model do
+          attr_accessor :name, :email, :main_address
+          
+          validates_presence_of :name
+        end
+        
+        T2 = m.class
+        
+        output = jcheck(m, nil, :generate_field_names => false)
+        output.should_not include("validator.field('name').custom_label = 'Name'")
+      end
+    end
+  end
+  
   context "generating all script for model" do
     before :all do
       @m = mock_model do
         attr_accessor :name
         
         validates_presence_of :name
-        
-        def persisted?
-          false
-        end
-        
-        def to_key
-          nil
-        end
       end
       
       SampleModel = @m.class
     end
     
     it "should generate all data" do
-      jcheck(@m).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_sample_model').jcheck({'field_prefix': 'sample_model'}); validator.validates('name', {'presence': true}); }); </script>"
+      jcheck(@m).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_sample_model').jcheck({'field_prefix': 'sample_model'}); validator.validates('name', {'presence': true}); validator.field('name').custom_label = 'Name'; }); </script>"
     end
     
     it "should be able to customize form id" do
@@ -257,7 +291,7 @@ describe "JcheckRails" do
       
       CusCla = m.class
       
-      jcheck(m).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_cus_cla').jcheck({'field_prefix': 'cus_cla'}); validator.validates('name', {'presence': true}); }); </script>"
+      jcheck(m, nil, :generate_field_names => false).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_cus_cla').jcheck({'field_prefix': 'cus_cla'}); validator.validates('name', {'presence': true});  }); </script>"
     end
   end
 end
