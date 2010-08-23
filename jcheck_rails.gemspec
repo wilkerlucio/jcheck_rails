@@ -5,23 +5,22 @@
 
 Gem::Specification.new do |s|
   s.name = %q{jcheck_rails}
-  s.version = "0.2.0"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Wilker Lucio"]
-  s.date = %q{2010-08-17}
+  s.date = %q{2010-08-22}
   s.description = %q{Generate jCheck code according to ActiveModel validations}
   s.email = %q{wilkerlucio@gmail.com}
   s.extra_rdoc_files = [
-    "LICENSE",
-     "README.textile"
+    "README.textile"
   ]
   s.files = [
-    ".document",
+    ".bundle/config",
+     ".document",
      ".gitignore",
      "Gemfile",
      "Gemfile.lock",
-     "LICENSE",
      "README.textile",
      "Rakefile",
      "VERSION",
