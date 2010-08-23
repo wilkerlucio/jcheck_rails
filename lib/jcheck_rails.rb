@@ -16,7 +16,8 @@ module JcheckRails
   # you want to get just the validations for an given attribute, send the
   # attribute name as second parameter. In third parameter you can send options
   # to be used in jCheck initialization, but there some special keys that can
-  # be sent in the options.
+  # be sent in the options. You can also send options as second parameter, in
+  # this case the attribute will be considered nil.
   #
   #   <%= form_for(@object) do |f| %>
   #     ...
@@ -31,7 +32,11 @@ module JcheckRails
   #
   # Also, any other configuration option will be sent to jCheck() initializer.
   #
-  def jcheck_for(object, attribute = nil, options = {})
+  def jcheck_for(*args)
+    options = args.extract_options!
+    object = args.shift
+    attribute = args.length > 0 ? args[0] : nil
+    
     return jcheck_for_object_attribute(object, attribute) if attribute
     
     options.reverse_merge!(

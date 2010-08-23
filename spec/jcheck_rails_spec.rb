@@ -256,19 +256,19 @@ describe "JcheckRails" do
     end
     
     it "should be able to customize form id" do
-      jcheck(@m, nil, :form_id => "custom_form_id").should include("jQuery('#custom_form_id')")
+      jcheck(@m, :form_id => "custom_form_id").should include("jQuery('#custom_form_id')")
     end
     
     it "should be able to customize field prefix" do
-      jcheck(@m, nil, :field_prefix => "custom_field_prefix").should include("'field_prefix': 'custom_field_prefix'")
+      jcheck(@m, :field_prefix => "custom_field_prefix").should include("'field_prefix': 'custom_field_prefix'")
     end
     
     it "should be able to add custom values" do
-      jcheck(@m, nil, :notifiers => ["custom_notifier"], :prevent_submit => false).should include("'notifiers': ['custom_notifier']", "'prevent_submit': false")
+      jcheck(@m, :notifiers => ["custom_notifier"], :prevent_submit => false).should include("'notifiers': ['custom_notifier']", "'prevent_submit': false")
     end
     
     it "should be able customize javascript variable name" do
-      jcheck(@m, nil, :variable => "v").should include("var v = jQuery", "v.validates")
+      jcheck(@m, :variable => "v").should include("var v = jQuery", "v.validates")
     end
   end
   
@@ -291,7 +291,7 @@ describe "JcheckRails" do
       
       CusCla = m.class
       
-      jcheck(m, nil, :generate_field_names => false).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_cus_cla').jcheck({'field_prefix': 'cus_cla'}); validator.validates('name', {'presence': true});  }); </script>"
+      jcheck(m, :generate_field_names => false).should == "<script type=\"text/javascript\"> jQuery(function() { var validator = jQuery('#new_cus_cla').jcheck({'field_prefix': 'cus_cla'}); validator.validates('name', {'presence': true});  }); </script>"
     end
   end
 end
